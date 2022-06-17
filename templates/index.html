@@ -1,0 +1,68 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block head %}
+    {{ super() }}
+{% endblock %}}
+{% block title %}{{ title }}{% endblock %}
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">Home</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item ">
+                    <a class="nav-link" href="/zadanieForm">Dodaj zadanie</a>
+                  </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h1>Zadania:</h1>
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table">
+                    <thead>
+                        <tr><th>Zadanie</th><th>Data</th><th>Godzina</th><th>Wykonano</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for lastAddedRecord in lastAddedRecords %}
+                            <tr {% if lastAddedRecord[6] %} style="background:{{color}};" {% endif %} {% if lastAddedRecord[7] %} style="background:red;" {% endif %}>
+                                <td>{{ lastAddedRecord[0] }}</td>
+                                <td>{{ lastAddedRecord[1] }}</td>
+                                <td>{{ lastAddedRecord[2] }}</td>
+                                <td>{{ lastAddedRecord[3] }}</td>
+                                <td>
+                                    {% if lastAddedRecord[5] and lastAddedRecord[8] %}
+                                    <div class="btn-group btn-group-toggle float-end" data-toggle="buttons">
+                                        <a class="btn btn-sm btn-warning" href="/change?ID={{ lastAddedRecord[4] }}" >Wykonano</a>
+                                    </div>
+                                    {% endif %}
+
+                                </td>
+
+                                <td>
+                                    {% if lastAddedRecord[7] %}
+                                        <div>NIE WYKONANO ZADANIA NA CZAS!</div>
+                                    {% elif lastAddedRecord[6] %}
+                                        <div>ZADANIE WYKONANE NA CZAS!</div>
+                                    {% endif %}
+                                </td>
+
+                                <td class="col-lg-2">
+                                    <div class="btn-group btn-group-toggle float-end" data-toggle="buttons">
+                                        <a class="btn btn-sm btn-warning" href="/editZadanie?ID={{ lastAddedRecord[4] }}">Edytuj</a>
+                                        <a class="btn btn-sm btn-danger" href="/deleteZadanie?ID={{ lastAddedRecord[4] }}">Usuń</a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

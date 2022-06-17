@@ -1,0 +1,28 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block head %}
+    {{ super() }}
+{% endblock %}}
+{% block title %}{{ title }}{% endblock %}
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">Home</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item ">
+                    <a class="nav-link" href="/zadanieForm">Dodaj zadanie</a>
+                  </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h3>Dodaj kontakt:</h3>
+        <div class="col-lg-6">
+          {{ wtf.quick_form(zadanieForm, action='/addZadanie') }}
+        </div>
+    </div>
+{% endblock %}
